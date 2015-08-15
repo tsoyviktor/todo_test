@@ -3,11 +3,11 @@
 require.config({
   paths: {
     baseUrl: 'js/',
-    underscore : 'lib/underscore',
+    underscore : 'lib/underscore'
   }
 
 });
 
-require(['controller'], function (controller) {
-    controller.start();
+require(['controller'], function (Controller) {
+    new Controller().start();
 });

@@ -3,16 +3,20 @@ define(['underscore', 'models/model'], function (_, Model) {
     var ItemsCollectionModel = Model.extend({
 
          _logName: 'ItemsCollectionModel',
-         _itemModels: {},
          _itemsNumber: 0,
 
         FIELDS: _.extend({
             ITEMS: 'item_models',
             ITEMS_NUMBER: 'items_count'
-        } Model.prototype.FIELDS),
+        }, Model.prototype.FIELDS),
+
+        _constructor : function () {
+            Model.prototype._constructor.call(this);
+            this._modelStore.item_models = [];
+        },
 
         getItemsNumber : function () {
-            return this.get(this.FIELDS.ITEMS_NUMBER);
+            return this.get(this.FIELDS.ITEMS_NUMBER) || this.get(this.FIELDS.ITEMS).length;
         },
 
 
@@ -23,7 +27,7 @@ define(['underscore', 'models/model'], function (_, Model) {
         },
 
         deleteItemById : function (id) {
-            this.set(FIELDS.ITEMS, _.reject(this.get(this.FIELDS.ITEMS), function (item) {
+            this.set(this.FIELDS.ITEMS, _.reject(this.get(this.FIELDS.ITEMS), function (item) {
                 return item.getId() === id;
             }));
         },
@@ -37,7 +41,7 @@ define(['underscore', 'models/model'], function (_, Model) {
         },
 
         addItems : function (items) {
-            this.set(this.get(FIELDS.ITEMS).concat(items));
+            this.set(this.FIELDS.ITEMS, this.get(this.FIELDS.ITEMS).concat(items));
         }
 
     });

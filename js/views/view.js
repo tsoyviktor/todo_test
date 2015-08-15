@@ -9,10 +9,9 @@ define(['underscore'], function (_) {
 
         start: function (data) {
             this.render(data);
-            this._addDOMEventsListeners();
         },
 
-        _addDOMEventsListeners : function () {},
+        initializeDOMListeners : function () {},
 
         _addEventListener : function (eventType, businessEventType, targetId, targetClass) {
             var self = this;

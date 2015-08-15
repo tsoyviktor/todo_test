@@ -10,21 +10,30 @@ define(['models/item_model', 'models/items_collection_model',
             var items = this._getDefaultItems();
             this.collection = new CollectionModel();
             this.collection.addItems(items);
-            var mainView = this._renderMainView(this.collection);
 
-            mainView.addBusinessEventHandler(MainView.prototype.EVENTS.ADD_NEW_ITEM, this._addNewItem);
+            this._renderMainView(this.collection);
+            this.mainView.initializeDOMListeners();
+
+            this.mainView.addBusinessEventHandler(MainView.prototype.EVENTS.ADD_NEW_ITEM, this._addNewItem.bind(this));
+            this.mainView.addBusinessEventHandler(ItemView.prototype.EVENTS.DELETE_ITEM, this._deleteItem.bind(this));
         },
 
         _renderMainView : function (collection) {
-            var mainView = new MainView();
-            mainView.start(collection || this.collection);
-            return mainView;
+            this.mainView = this.mainView || new MainView();
+            this.mainView.start(collection || this.collection);
         },
 
         _addNewItem : function (itemTitle) {
             var newModel = new ItemModel();
             newModel.setTitle(itemTitle);
+            newModel.setIsActive(false);
+
             this.collection.addItem(newModel);
+            this._renderMainView(this.collection);
+        },
+
+        _deleteItem : function (id) {
+            this.collection.deleteItemById(id);
             this._renderMainView(this.collection);
         },
 

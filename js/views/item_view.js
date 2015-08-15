@@ -5,12 +5,24 @@ define(['underscore', 'views/view'], function (_, View) {
 
     _.extend(ItemView.prototype, View.prototype, {
 
+        EVENTS: {
+            DELETE_ITEM: 'delete_item'
+        },
+
         _getTemplate: function () {
-            return "<li class='<%= is_complete ? \'active\':\'inactive\' %>'>" +
+            return "<li class='todo_item'" +
                 "<p><%= item_title %>" +
-                    "<button type='button' data-id='<%= id%>'> Delete </button>" +
+                    "<button type='button' data-id='<%= id%>' clas='delete_item'> Delete </button>" +
                 "</p>" +
             " </li>";
+        },
+
+        initializeDOMListeners : function () {
+            this._addEventListener('click', this.EVENTS.DELETE_ITEM, '', 'delete_item');
+        },
+
+        _getElementData : function (eventTarget){
+            return eventTarget.getAttribute('data-id');
         }
 
     });

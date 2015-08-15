@@ -28,7 +28,7 @@ define(['underscore', 'models/model'], function (_, Model) {
 
         deleteItemById : function (id) {
             this.set(this.FIELDS.ITEMS, _.reject(this.get(this.FIELDS.ITEMS), function (item) {
-                return item.getId() === id;
+                return String(item.getId()) === String(id);
             }));
         },
 

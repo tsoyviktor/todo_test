@@ -1,8 +1,8 @@
 define(['underscore', 'views/view', 'views/item_view'], function (_, View, ItemView) {
 
-    var ItemListView = function () {};
+    var MainView = function () {};
     
-    _.extend(ItemListView.prototype, View.prototype, {
+    _.extend(MainView.prototype, View.prototype, {
 
         EVENTS : {
             ADD_NEW_ITEM: 'add_new_item'
@@ -22,16 +22,18 @@ define(['underscore', 'views/view', 'views/item_view'], function (_, View, ItemV
             View.prototype.start.call(this, renderingData);
         },
 
-        _addDOMEventsListeners : function () {
+        initializeDOMListeners : function () {
             this._addEventListener('click', this.EVENTS.ADD_NEW_ITEM, 'add');
+            ItemView.prototype.initializeDOMListeners();
         },
 
         _getElementData : function (eventTarget){
-            return document.querySelector('#new_item').innerHTML;
+            return document.querySelector('#new_item').value;
         },
 
         render : function (data) {
              var element = document.querySelector(this._mountPoint);
+             element.innerHTML = '';
              element.innerHTML = View.prototype.render.call(this, data);
         },
 
@@ -44,6 +46,6 @@ define(['underscore', 'views/view', 'views/item_view'], function (_, View, ItemV
 
     });
 
-    return ItemListView;
+    return MainView;
 
 });

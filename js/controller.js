@@ -38,15 +38,9 @@ define(['models/item_model', 'models/items_collection_model',
         },
 
         _getDefaultItems : function () {
-            var model1 = new ItemModel();
-            model1.set('item_title', "I've got to something 111");
-            model1.set('is_complete', false);
-
-            var model2 = new ItemModel();
-            model2.set('item_title', "I've got to something 22");
-            model2.set('is_complete', false);
-
-            return [model1, model2];
+            var model = new ItemModel();
+            model.setTitle("I've got to something ");
+            return [model];
         }
 
 

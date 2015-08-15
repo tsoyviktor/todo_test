@@ -1,10 +1,9 @@
-'use strict'
+'use strict';
 
 require.config({
-  paths: {
-    baseUrl: 'js/',
-    underscore : 'lib/underscore'
-  }
+    paths: {
+        underscore: 'lib/underscore'
+    }
 
 });
 

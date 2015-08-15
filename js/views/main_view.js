@@ -41,11 +41,10 @@ define(['underscore', 'views/view', 'views/item_view'], function (_, View, ItemV
             return "<input type='text' id='new_item'> <button id='add' type='button'> Add </button>" +
             "<ul>" +
                 "<%= data %>" +
-            "</ul> <p>Elements number: <%=items_number%><p>";
+            "</ul> <p class='counter'>Elements number: <%=items_number%><p>";
         }
 
     });
 
     return MainView;
-
 });
